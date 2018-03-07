@@ -221,18 +221,18 @@ class BruteForceDES
         long runstart;
         runstart = System.currentTimeMillis();
 
-        List<myThread> listOfThreads = new ArrayList<>();
+        List<Thread> listOfThreads = new ArrayList<>();
         for(int i=0;i<numOfThreads;i++){
             //SealedObject sldObj = enccipher.encrypt ( plainstr );
-            listOfThreads.add(new myThread("Thread-"+(i+1),key,plainstr,runstart,maxkey,numOfThreads));
+            Thread add_thread = new Thread(new myThread("Thread-"+(i+1),key,sldObj,plainstr,runstart,maxkey,numOfThreads));
+            listOfThreads.add(add_thread);
         }
-        System.out.println(listOfThreads.size());
         
-        for(myThread th:listOfThreads){
+        for(Thread th:listOfThreads){
                th.start();
         }
 
-        for(myThread th:listOfThreads){
+        for(Thread th:listOfThreads){
               try {
                   th.join();
               }catch(InterruptedException ie){
@@ -247,7 +247,7 @@ class BruteForceDES
     }
 
 
-    static class myThread extends Thread{
+    static class myThread implements Runnable{
 
          private String name;
          private long maxkey;
@@ -258,7 +258,7 @@ class BruteForceDES
          //SealedDES enccipher;
          SealedObject sldObj;
          BruteForceDES deccipher;
-         BruteForceDES enccipher;
+         //BruteForceDES enccipher;
 
          int numOfThreads;
          long bucket_size;
@@ -266,17 +266,17 @@ class BruteForceDES
          int thread_id = 0;
 
 
-         myThread(String name,long key,String plainstr,long runstart,long maxkey,int numOfThreads){
-             deccipher = new BruteForceDES();
+         myThread(String name,long key,SealedObject sldObj,String plainstr,long runstart,long maxkey,int numOfThreads){
+             //deccipher = new BruteForceDES();
              this.name = name;
              this.key = key;
-             enccipher = new BruteForceDES();
-             enccipher.setKey(key);
+             // enccipher = new BruteForceDES();
+             // enccipher.setKey(key);
 
 
 
              this.plainstr = plainstr;
-             sldObj = enccipher.encrypt ( plainstr );
+             this.sldObj = sldObj;
              this.runstart = runstart;
              
              this.sldObj = sldObj;

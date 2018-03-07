@@ -14,37 +14,39 @@ class CoinFlip{
      	   numIterations = Integer.parseInt(args[1]);
 
            List<myThreads> listThreads = new ArrayList<>();
+           Thread[] threads = new Thread[numOfThreads];
            for(int i=0;i<numOfThreads;i++){
            	    myThreads createThreads = new myThreads("thread" + i);
            	    listThreads.add(createThreads);
+                threads[i] = new Thread(createThreads);
            }
 
-           for(myThreads th:listThreads){
-           	   th.start();
+           for(int i=0;i<threads.length;i++){
+           	   threads[i].start();
            }
 
            
-           for(myThreads th:listThreads){
-		      try {
-		          th.join();
-		      }catch (InterruptedException ie) {
-		           ie.printStackTrace();
-		      }
-           }
+          for(int i=0;i<threads.length;i++){
+		         try {
+		             threads[i].join();
+		         }catch (InterruptedException ie) {
+		              ie.printStackTrace();
+		         }
+          }
            
-           for(myThreads th:listThreads){
-           	   heads+=th.getNumHeads();
-           }
+          for(myThreads th:listThreads){
+           	   heads += th.getNumHeads();
+          }
 
-           System.out.println("the number of heads is: " + heads);
+         System.out.println(heads + " heads in "+ numIterations +" coin tosses");
      	   long endTime = System.currentTimeMillis();
-     	   System.out.println("the running time:"+(endTime-startTime));
+     	   System.out.println("Elaspsed time: "+(endTime-startTime));
 
      }
 
 
 
-  static class myThreads extends Thread{
+  static class myThreads implements Runnable{
           private int myhead = 0;
           private String name;
           Random random;
