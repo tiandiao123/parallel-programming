@@ -176,28 +176,31 @@ int main ( int argc, char** argv ) {
 	    if(ID%2==0){
              MPI_Send(sub_grid+DIM,DIM,MPI_INT,previous_layer,0,MPI_COMM_WORLD);
              MPI_Send(sub_grid+num_of_pro_size-2*DIM,DIM,MPI_INT,next_layer,0,MPI_COMM_WORLD);
+             //MPI_Barrier(MPI_COMM_WORLD);
 
-             MPI_Recv(sub_grid,DIM,MPI_INT,previous_layer,0,
-             	MPI_COMM_WORLD,MPI_STATUS_IGNORE);
              MPI_Recv(sub_grid+num_of_pro_size-DIM,DIM,MPI_INT,
              	next_layer,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+             MPI_Recv(sub_grid,DIM,MPI_INT,previous_layer,0,
+             	MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 	    }else{
-
-	    	MPI_Recv(sub_grid,DIM,MPI_INT,previous_layer,0,
-	    		MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+	    	
 	    	MPI_Recv(sub_grid+num_of_pro_size-DIM,DIM,MPI_INT,
 	    		next_layer,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+	    	MPI_Recv(sub_grid,DIM,MPI_INT,previous_layer,0,
+	    		MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+	    	//MPI_Barrier(MPI_COMM_WORLD);
 
 	    	MPI_Send(sub_grid+DIM,DIM,MPI_INT,previous_layer,0,MPI_COMM_WORLD);
             MPI_Send(sub_grid+num_of_pro_size-2*DIM,DIM,MPI_INT,next_layer,0,MPI_COMM_WORLD);
 	    }
-        
-	    int* new_sub_grid = get_new_subgrid(sub_grid,num_of_pro_size,DIM);
         //MPI_Barrier(MPI_COMM_WORLD);
+	    int* new_sub_grid = get_new_subgrid(sub_grid,num_of_pro_size,DIM);
+	    MPI_Barrier(MPI_COMM_WORLD);
+        
 
         MPI_Gather(new_sub_grid,num_of_pro_size-2*DIM,MPI_INT,
         	global_grid,num_of_pro_size-2*DIM,MPI_INT,0,MPI_COMM_WORLD);
-
+        MPI_Barrier(MPI_COMM_WORLD);
 	    // Output the updated grid state
 	    if ( ID == 0 ) {
 	      printf ( "\nIteration %d: final grid:\n", iters );
