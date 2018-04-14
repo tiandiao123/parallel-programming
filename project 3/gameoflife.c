@@ -1,6 +1,8 @@
 // gameoflife.c
 // Name: YOUR NAME HERE
 // JHED: YOUR JHED HERE
+//http://www.cs.cmu.edu/~aarti/Class/10701_Spring14/slides/logistic_regression.pdf
+//
 
 #include <stdio.h>
 #include <stdlib.h>
