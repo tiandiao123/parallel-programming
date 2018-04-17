@@ -22,7 +22,7 @@ for line in sys.stdin:
 	if key == previous_word:
 		count_word+=1
 		if count_word == 3:
-			triangles = key.split('-')
+			triangles = key.split('_')
 			for i in range(3):
 				printFriends(triangles[i],triangles[(i+1)%3],triangles[(i+2)%3])
 	else:
