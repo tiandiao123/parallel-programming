@@ -15,5 +15,5 @@ for line in sys.stdin:
 		for j in range(i+1,len(strs)):
 			sort_list = [strs[0],strs[i],strs[j]]
 			sort_list.sort()
-			print("%s_%s_%s\t%s".format(str(sort_list[0]),str(sort_list[1]),str(sort_list[2]),str(val)))
+			print "%s_%s_%s\t%s" % (str(sort_list[0]),str(sort_list[1]),str(sort_list[2]),str(val))
 			
