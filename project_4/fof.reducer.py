@@ -27,5 +27,5 @@ for line in sys.stdin:
 def printFriends(word1,word2,word3):
 	list = [word2,word3]
 	list.sort()
-	print("%s %s %s".format(str(word1),str(list[0]),str(list[1])))
+	print "%s %s %s"%(str(word1),str(list[0]),str(list[1]))
 
