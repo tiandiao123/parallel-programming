@@ -3,6 +3,12 @@
 import sys
 import re
 
+
+def printFriends(word1,word2,word3):
+	list = [word2,word3]
+	list.sort()
+	print "%s %s %s"%(str(word1),str(list[0]),str(list[1]))
+
 previous_word = None
 count_word = 0
 for line in sys.stdin:
@@ -24,8 +30,5 @@ for line in sys.stdin:
 		count_word = 1
 
 
-def printFriends(word1,word2,word3):
-	list = [word2,word3]
-	list.sort()
-	print "%s %s %s"%(str(word1),str(list[0]),str(list[1]))
+
 
