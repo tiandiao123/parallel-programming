@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.*;
 
@@ -44,16 +43,16 @@ public class FoF {
                	   it.next();
                }
 
-               if(count==3){
+               if(count>=3){
                	   String line = key.toString();
-               	   String[] strs = line.split("-");
+               	   String[] strs = line.split("_");
                	   for(int i=0;i<3;i++){
                		   IntWritable one = new IntWritable(1);
                		   String[] temp = new String[]{strs[(i+1)%3],strs[(i+2)%3]};
                	       Arrays.sort(temp);
                	       String keyOut = strs[i] + " " + temp[0] + " " + temp[1];
                	       Text wordOut = new Text(keyOut);
-               	       context.write(wordOut,one);
+               	       context.write(wordOut,null);
                	   }
                	   
                }
