@@ -5,7 +5,7 @@ import re
 
 
 def printFriends(word1,word2,word3):
-	list = [word2,word3]
+	list = [int(word2),int(word3)]
 	list.sort()
 	print "%s %s %s"%(str(word1),str(list[0]),str(list[1]))
 
